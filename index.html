@@ -1,279 +1,149 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Davey Minoy’s Doodle Chaos</title>
-
+    <title>Davey Minoy DoodleBoard</title>
     <style>
-
         body {
-
             font-family: 'Comic Sans MS', cursive, sans-serif;
-
-            background-color: #f7f7f7;
-
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: #333;
             text-align: center;
-
-            overflow: hidden;
-
+            margin: 0;
+            padding: 0;
         }
-
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         h1 {
-
             font-size: 3em;
-
-            text-shadow: 3px 3px #ffcc00;
-
+            color: #FFD93D;
+            text-shadow: 2px 2px #FF6B6B;
         }
-
-        #doodle-container {
-
-            display: flex;
-
-            justify-content: center;
-
-            flex-wrap: wrap;
-
-            margin-top: 20px;
-
-        }
-
-        .doodle {
-
-            width: 100px;
-
-            height: 100px;
-
-            background: url('https://i.imgur.com/RfjxG6O.png');
-
-            background-size: cover;
-
-            margin: 10px;
-
+        #doodlebob {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
             cursor: pointer;
-
-            animation: bounce 2s infinite;
-
+            transition: transform 0.3s;
         }
-
-        .doodle:hover {
-
-            transform: rotate(10deg) scale(1.2);
-
-            filter: hue-rotate(90deg);
-
+        #doodlebob:hover {
+            transform: scale(1.1) rotate(5deg);
         }
-
         #message-board {
-
-            width: 60%;
-
-            margin: auto;
-
-            background: #fff;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-
+            margin-top: 30px;
         }
-
-        textarea, button {
-
-            width: 100%;
-
+        textarea {
+            width: 80%;
             padding: 10px;
-
-            margin-top: 10px;
-
-            font-size: 1.2em;
-
-            border-radius: 5px;
-
+            font-size: 1em;
+            margin-bottom: 10px;
         }
-
         button {
-
-            background: #ffcc00;
-
+            background-color: #FF6B6B;
+            color: white;
             border: none;
-
+            padding: 10px 20px;
+            font-size: 1em;
             cursor: pointer;
-
-        }
-
-        #messages {
-
-            margin-top: 20px;
-
-            text-align: left;
-
-        }
-
-        .message {
-
-            background: #e3e3e3;
-
-            padding: 10px;
-
-            margin: 5px;
-
             border-radius: 5px;
-
-            font-size: 1.2em;
-
         }
-
-
-
-        @keyframes bounce {
-
-            0%, 100% { transform: translateY(0); }
-
-            50% { transform: translateY(-10px); }
-
+        button:hover {
+            background-color: #FF8E8E;
         }
-
+        #messages {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .message {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .doodle-image {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        #doodle-canvas {
+            border: 2px dashed #FFD93D;
+            background-color: white;
+            cursor: crosshair;
+        }
+        #doodle-controls {
+            margin-top: 10px;
+        }
+        #doodle-controls button {
+            margin-right: 5px;
+        }
     </style>
-
 </head>
-
 <body>
+    <div class="container">
+        <h1>Davey Minoy DoodleBoard</h1>
+        <img id="doodlebob" src="https://example.com/doodlebob.png" alt="DoodleBob" onclick="miHoyMinoy()">
 
+        <div id="message-board">
+            <h2>Post a Message</h2>
+            <textarea id="messageInput" placeholder="Type your Mi Hoy Minoy message here"></textarea>
+            <button onclick="postMessage()">Post Message</button>
+        </div>
 
+        <div id="doodle-area">
+            <h2>Doodle Away!</h2>
+            <canvas id="doodle-canvas" width="400" height="300"></canvas>
+            <div id="doodle-controls">
+                <button onclick="clearCanvas()">Clear Doodle</button>
+                <button onclick="shareDoodle()">Share Doodle</button>
+                <!-- Save Doodle Button -->
+                <a id="save-doodle" download="my-doodle.png" style="display:none;"></a>
+                <!-- Hidden link for saving -->
+                <button onclick="saveDoodle()">Save Doodle Locally</button>
+            </div>
+        </div>
 
-    <h1>🔥 Davey Minoy’s DoodleBoard 🔥</h1>
-
-    <p>Me Hoy Minoy your thoughts into the void. No names, no rules, just chaos.</p>
-
-
-
-    <div id="doodle-container">
-
-        <div class="doodle" onclick="reactToDoodle()"></div>
-
-        <div class="doodle" onclick="reactToDoodle()"></div>
-
-        <div class="doodle" onclick="reactToDoodle()"></div>
-
+        <div id="messages">
+            <h2>Messages & Shared Doodles</h2>
+        </div>
     </div>
-
-
-
-    <div id="message-board">
-
-        <h2>🖊️ Leave a DoodleMessage</h2>
-
-        <textarea id="messageInput" placeholder="Type your Me Hoy Minoy here..."></textarea>
-
-        <button onclick="postMessage()">Post</button>
-
-        <div id="messages"></div>
-
-    </div>
-
-
-
-    <audio id="minoySound" src="https://www.myinstants.com/media/sounds/me-hoy-minoy.mp3"></audio>
-
-    
 
     <script>
+        const canvas = document.getElementById('doodle-canvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
 
-        function reactToDoodle() {
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
 
-            const sounds = [
-
-                "https://www.myinstants.com/media/sounds/me-hoy-minoy.mp3",
-
-                "https://www.myinstants.com/media/sounds/vine-boom.mp3",
-
-                "https://www.myinstants.com/media/sounds/super-mario-jump-sound.mp3"
-
-            ];
-
-            let sound = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
-
-            sound.play();
-
-            alert(getMemeResponse());
-
+        function startDrawing(e) {
+            drawing = true;
+            draw(e);
         }
 
-
-
-        function postMessage() {
-
-            let messageInput = document.getElementById("messageInput").value;
-
-            if (messageInput.trim() === "") {
-
-                alert("You can't Me Hoy Minoy nothing!");
-
-                return;
-
-            }
-
-
-
-            let messageBoard = document.getElementById("messages");
-
-            let newMessage = document.createElement("div");
-
-            newMessage.className = "message";
-
-            newMessage.textContent = messageInput;
-
-            messageBoard.prepend(newMessage); 
-
-
-
-            document.getElementById("messageInput").value = ""; 
-
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
         }
 
+        function draw(e) {
+            if (!drawing) return;
 
+            ctx.lineWidth = 5; // Line thickness
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#333'; // Black doodle color
 
-        function getMemeResponse() {
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            
+			ctx.beginPath();
+			ctx.moveTo(e.offsetX, e.offsetY);
+		}
 
-            const responses = [
+		function clearCanvas() {ctx.clearRect(0, canvas.width);}
 
-                "ME HOY MINOY INTENSIFIES 🌀",
-
-                "STONKS 📈",
-
-                "DAVEY MINOY APPROVES ✅",
-
-                "TO THE MOON 🚀",
-
-                "ERROR 404: LOGIC NOT FOUND",
-
-                "YOU JUST ACTIVATED MY TRAP CARD!",
-
-                "ABSOLUTELY NO VIBE CONTROL 🌀",
-
-                "WEN LAMBO? 🚗💨",
-
-                "HODL! HODL! HODL!"
-
-            ];
-
-            return responses[Math.floor(Math.random() * responses.length)];
-
-        }
-
-    </script>
-
-
-
-</body>
-
-</html>
+		function miHoyMinoy() =>{new Audio("https://example.com/mihoyminoy.mp3").play();alert("Mi hoy minoy!");}
