@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Davey Minoy’s Doodle Chaos</title>
+
+    <style>
+
+        body {
+
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+
+            background-color: #f7f7f7;
+
+            text-align: center;
+
+            overflow: hidden;
+
+        }
+
+        h1 {
+
+            font-size: 3em;
+
+            text-shadow: 3px 3px #ffcc00;
+
+        }
+
+        #doodle-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            margin-top: 20px;
+
+        }
+
+        .doodle {
+
+            width: 100px;
+
+            height: 100px;
+
+            background: url('https://i.imgur.com/RfjxG6O.png');
+
+            background-size: cover;
+
+            margin: 10px;
+
+            cursor: pointer;
+
+            animation: bounce 2s infinite;
+
+        }
+
+        .doodle:hover {
+
+            transform: rotate(10deg) scale(1.2);
+
+            filter: hue-rotate(90deg);
+
+        }
+
+        #message-board {
+
+            width: 60%;
+
+            margin: auto;
+
+            background: #fff;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        textarea, button {
+
+            width: 100%;
+
+            padding: 10px;
+
+            margin-top: 10px;
+
+            font-size: 1.2em;
+
+            border-radius: 5px;
+
+        }
+
+        button {
+
+            background: #ffcc00;
+
+            border: none;
+
+            cursor: pointer;
+
+        }
+
+        #messages {
+
+            margin-top: 20px;
+
+            text-align: left;
+
+        }
+
+        .message {
+
+            background: #e3e3e3;
+
+            padding: 10px;
+
+            margin: 5px;
+
+            border-radius: 5px;
+
+            font-size: 1.2em;
+
+        }
+
+
+
+        @keyframes bounce {
+
+            0%, 100% { transform: translateY(0); }
+
+            50% { transform: translateY(-10px); }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <h1>🔥 Davey Minoy’s DoodleBoard 🔥</h1>
+
+    <p>Me Hoy Minoy your thoughts into the void. No names, no rules, just chaos.</p>
+
+
+
+    <div id="doodle-container">
+
+        <div class="doodle" onclick="reactToDoodle()"></div>
+
+        <div class="doodle" onclick="reactToDoodle()"></div>
+
+        <div class="doodle" onclick="reactToDoodle()"></div>
+
+    </div>
+
+
+
+    <div id="message-board">
+
+        <h2>🖊️ Leave a DoodleMessage</h2>
+
+        <textarea id="messageInput" placeholder="Type your Me Hoy Minoy here..."></textarea>
+
+        <button onclick="postMessage()">Post</button>
+
+        <div id="messages"></div>
+
+    </div>
+
+
+
+    <audio id="minoySound" src="https://www.myinstants.com/media/sounds/me-hoy-minoy.mp3"></audio>
+
+    
+
+    <script>
+
+        function reactToDoodle() {
+
+            const sounds = [
+
+                "https://www.myinstants.com/media/sounds/me-hoy-minoy.mp3",
+
+                "https://www.myinstants.com/media/sounds/vine-boom.mp3",
+
+                "https://www.myinstants.com/media/sounds/super-mario-jump-sound.mp3"
+
+            ];
+
+            let sound = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+
+            sound.play();
+
+            alert(getMemeResponse());
+
+        }
+
+
+
+        function postMessage() {
+
+            let messageInput = document.getElementById("messageInput").value;
+
+            if (messageInput.trim() === "") {
+
+                alert("You can't Me Hoy Minoy nothing!");
+
+                return;
+
+            }
+
+
+
+            let messageBoard = document.getElementById("messages");
+
+            let newMessage = document.createElement("div");
+
+            newMessage.className = "message";
+
+            newMessage.textContent = messageInput;
+
+            messageBoard.prepend(newMessage); 
+
+
+
+            document.getElementById("messageInput").value = ""; 
+
+        }
+
+
+
+        function getMemeResponse() {
+
+            const responses = [
+
+                "ME HOY MINOY INTENSIFIES 🌀",
+
+                "STONKS 📈",
+
+                "DAVEY MINOY APPROVES ✅",
+
+                "TO THE MOON 🚀",
+
+                "ERROR 404: LOGIC NOT FOUND",
+
+                "YOU JUST ACTIVATED MY TRAP CARD!",
+
+                "ABSOLUTELY NO VIBE CONTROL 🌀",
+
+                "WEN LAMBO? 🚗💨",
+
+                "HODL! HODL! HODL!"
+
+            ];
+
+            return responses[Math.floor(Math.random() * responses.length)];
+
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
